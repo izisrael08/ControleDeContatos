@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ControleDeContatos.Data;
-using ControleDeContatos.Repositorio;  // Importar o namespace correto para o seu BancoContext
+using ControleDeContatos.Repositorio;
+// Importar o namespace correto para o seu BancoContext
+// Certifique-se de importar o namespace correto para IUsuarioRepositorio
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +13,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BancoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
-// Registrando o repositório
+// Registrando o repositório contatos
 builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();  // Certifique-se de que UsuarioRepositorio implementa IUsuarioRepositorio
 
 var app = builder.Build();
 

@@ -7,7 +7,8 @@ namespace ControleDeContatos.Data
 //Microsoft.EntityFrameworkCore.Tools
 //Microsoft.EntityFrameworkCore.SqlServer
 //cria  PM> o Migration: add-Migration CriandoTabelaContatos -Context BancoContext
-//roda PM> Update-Database -Context BancoContext
+//roda PM> Update-Database -Context BancoContext -- use sempre para enviar as alterações para o banco de dados
+//roda PM> add-Migration CriandoTabelaUsuarios -Context BancoContext
 
 {
     public class BancoContext : DbContext
@@ -17,5 +18,6 @@ namespace ControleDeContatos.Data
         }
 
         public DbSet<ContatoModel> Contatos { get; set; }
+        public DbSet<UsuarioModel> Usuarios { get; set; }
     }
 }
