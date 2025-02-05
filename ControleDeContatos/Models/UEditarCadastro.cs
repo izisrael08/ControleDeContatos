@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ControleDeContatos.Models
 {
-    public class UsuarioModel
+    public class UEEditarCadastro
     {
         public int Id { get; set;}
 
@@ -18,13 +18,8 @@ namespace ControleDeContatos.Models
         [Required(ErrorMessage = "Digite o e-mail do usuário")]
         [EmailAddress(ErrorMessage = "Digite um e-mail válido")]
         public string Email { get; set; }
-
         [Required(ErrorMessage = "Informe o perfil do usuário")]
         public PerfilEnum? Perfil { get; set; }
 
-        [Required(ErrorMessage = "Digite a senha do usuário")]
-        public string Senha { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public DateTime? DataAlteracao { get; set; }
     }
 }

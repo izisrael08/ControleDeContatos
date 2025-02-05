@@ -28,7 +28,7 @@
  
     <br />
 
-<h1 class="display-4">Listagem de contatos</h1>
+<h1 class="display-4">Listagem de Usuários</h1>
 
     <table class="text-center" id="tables-usuario">
     <thead>
@@ -37,6 +37,7 @@
             <th scope="col">Nome</th>
             <th scope="col">Login</th>
             <th scope="col">Email</th>
+            <th scope="col">Perfil</th>
             <th scope="col">Data Criacao</th>
             <th scope="col"></th>
         </tr>
@@ -51,6 +52,7 @@
                         <td>@Usuario.Nome</td>
                         <td>@Usuario.Login</td>
                         <td>@Usuario.Email</td>
+                        <td>@(Usuario.Perfil == ControleDeContatos.Enums.PerfilEnum.Administrador ? "Administrador" : "Padão")</td>
                         <td>@Usuario.DataCriacao</td>
                         <td>
                             <div class="btn-group" role="group">

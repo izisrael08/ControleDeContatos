@@ -1,14 +1,32 @@
 ﻿@using ControleDeContatos.Enums
 @model UsuarioModel
 @{
-    ViewData["Title"] = "Criar usuário";
+    ViewData["Title"] = "Editar Usuário";
 }
+
 <div class="text-center mb-4">
-    <h1 class="display-4">Cadastrar usuário</h1>
+    <h1 class="display-4">Editar Usuário</h1>
 </div>
 
-<form asp-controller="Usuario" asp-action="Criar" method="post">
-    <div class="form-group mb-3" >
+@if (TempData["MensagemSucesso"] != null)
+    {
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["MensagemSucesso"]
+    </div>
+    }
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<form asp-controller="Usuario" asp-action="Editar" method="post">
+
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group mb-3">
         <label for="nome">Nome</label>
         <input type="text" asp-for=Nome class="form-control" placeholder="Digite o nome do usuário">
         @Html.ValidationMessageFor(x => x.Nome)
@@ -26,7 +44,7 @@
         @Html.ValidationMessageFor(x => x.Login)
     </div>
 
-    <div class="form-group mb-3" >
+    <div class="form-group mb-3">
         <label for="perfil">Perfil</label>
         <select asp-for="Perfil" class="form-control">
             <option value="">Selecione</option>
@@ -35,17 +53,10 @@
         </select>
         @Html.ValidationMessageFor(x => x.Perfil)
     </div>
-
-    <div class="form-group mb-3">
-        <label for="senha" class="form-label">Senha</label>
-        <input type="password" asp-for=Senha class="form-control" placeholder="Digite a senha do usuário">
-        @Html.ValidationMessageFor(x => x.Senha)
-    </div>
-
-
     <!-- Botões em bloco -->
     <div class="d-flex flex-column">
-        <button type="submit" class="btn btn-primary w-100 mb-2">Adicionar</button>
+        <button type="submit" class="btn btn-primary w-100 mb-2">Alterar</button>
         <a class="btn btn-secondary w-100" role="button" asp-controller="Usuario" asp-action="Index">Voltar</a>
     </div>
+
 </form>
