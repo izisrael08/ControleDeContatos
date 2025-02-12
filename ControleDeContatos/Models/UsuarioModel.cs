@@ -26,5 +26,10 @@ namespace ControleDeContatos.Models
         public string Senha { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime? DataAlteracao { get; set; }
+
+        public bool SenhaValida(string senha)
+        {
+            return Senha == senha;
+        }
     }
 }
