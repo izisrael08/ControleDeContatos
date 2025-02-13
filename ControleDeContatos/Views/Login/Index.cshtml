@@ -13,18 +13,59 @@
     </div>
 }
 
-<form asp-controller="Login" asp-action="Entrar" method="post">
-    <div class="mb-3">
-        <label for="login" class="form-label">Login</label>
-        <input type="text" asp-for="Login" class="form-control" id="login">
-        @Html.ValidationMessageFor(x => x.Login)
-       
+<div id="container" class="container">
+    <div class="form-container sign-up-container">
+        <form action="#">
+            <h1>Criar Conta</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>ou use seu e-mail para cadastro</span>
+            <input type="text" placeholder="Nome" autocomplete="name" />
+            <input type="email" placeholder="Email" autocomplete="email" />
+            <input type="password" placeholder="Senha" autocomplete="new-password" />
+            <button>Sign Up</button>
+        </form>
     </div>
-    <div class="mb-3">
-        <label for="Senha" class="form-label">Senha</label>
-        <input type="password" asp-for="Senha" class="form-control" id="senha">
-        @Html.ValidationMessageFor(x => x.Senha)
+    <div class="form-container sign-in-container">
+        <form asp-controller="Login" asp-action="Entrar" method="post">
+            <h1>Entrar</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+
+            <input type="text" asp-for="Login" class="form-control" placeholder="Usuário" autocomplete="username">
+            @Html.ValidationMessageFor(x => x.Login)
+
+            <div class="password-container">
+                <input type="password" asp-for="Senha" class="form-control" id="password" placeholder="Senha" autocomplete="current-password">
+                <i class="fa fa-eye" id="togglePassword"></i>
+            </div>
+            <div class="error-message">
+                @Html.ValidationMessageFor(x => x.Senha)
+            </div>
+
+
+            <a href="#">Esqueceu sua senha?</a>
+            <button type="submit" class="btn btn-primary w-100 mb-2">Entrar</button>
+        </form>
     </div>
-   
-    <button type="submit" class="btn btn-primary w-100 mb-2">Entrar</button>
-</form>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Bem-vindo de volta!</h1>
+                <p>Para se manter conectado, faça login com suas credenciais</p>
+                <button class="ghost" id="signIn">Entrar</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Olá, amigo!</h1>
+                <p>Insira seus dados pessoais e comece sua jornada conosco</p>
+                <button class="ghost" id="signUp">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</div>
