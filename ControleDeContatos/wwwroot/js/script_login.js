@@ -23,3 +23,20 @@ document.getElementById("togglePassword").addEventListener("click", function () 
         this.classList.add("fa-eye");
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    let alertBox = document.querySelector(".custom-alert");
+    if (alertBox) {
+        document.querySelector(".close-alert").addEventListener("click", function () {
+            alertBox.classList.add("hide");
+            setTimeout(() => alertBox.remove(), 500);
+        });
+
+        // Fechar automaticamente após 5 segundos
+        setTimeout(() => {
+            alertBox.classList.add("hide");
+            setTimeout(() => alertBox.remove(), 500);
+        }, 5000);
+    }
+});

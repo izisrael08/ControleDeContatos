@@ -257,3 +257,39 @@ input {
     bottom: -18px; /* Mantém a mensagem fixa sem empurrar o input */
     left: 5px;
 }
+
+/*Notificação*/
+
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #E30713;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 250px;
+    max-width: 300px;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.close-alert {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 23px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.custom-alert.hide {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
