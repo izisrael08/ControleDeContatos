@@ -1,37 +1,51 @@
-using Microsoft.EntityFrameworkCore;
-using ControleDeContatos.Data;
-using ControleDeContatos.Repositorio;
-// Importar o namespace correto para o seu BancoContext
-// Certifique-se de importar o namespace correto para IUsuarioRepositorio
+    using Microsoft.EntityFrameworkCore;
+    using ControleDeContatos.Data;
+    using ControleDeContatos.Repositorio;
+    using ControleDeContatos.Helper;
 
-var builder = WebApplication.CreateBuilder(args);
+    var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+    // Add services to the container.
+    builder.Services.AddControllersWithViews();
 
-// Adicionando o DbContext com a string de conexão configurada
-builder.Services.AddDbContext<BancoContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+    // Adicionando o DbContext com a string de conexão configurada
+    builder.Services.AddDbContext<BancoContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
-// Registrando o repositório contatos
-builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
-builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();  // Certifique-se de que UsuarioRepositorio implementa IUsuarioRepositorio
+    // Registrando os repositórios
+    builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+    builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>(); // Certifique-se de que UsuarioRepositorio implementa IUsuarioRepositorio
 
-var app = builder.Build();
+    // Registrando o IHttpContextAccessor corretamente como Singleton
+    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    builder.Services.AddScoped<ISessao, Sessao>();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-}
-app.UseStaticFiles();
+    // Adicionando o serviço de sessão
+    builder.Services.AddSession(options =>
+    {
+        options.Cookie.HttpOnly = true;
+        options.Cookie.IsEssential = true;
+        //options.IdleTimeout = TimeSpan.FromMinutes(30); // Define o tempo de expiração da sessão
+    });
 
-app.UseRouting();
+    var app = builder.Build();
 
-app.UseAuthorization();
+    // Configure the HTTP request pipeline.
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Home/Error");
+    }
+    app.UseStaticFiles();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Login}/{action=Index}/{id?}");
+    app.UseRouting();
 
-app.Run();
+    // Habilita o uso de sessões
+    app.UseSession();
+
+    app.UseAuthorization();
+
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Login}/{action=Index}/{id?}");
+
+    app.Run();
