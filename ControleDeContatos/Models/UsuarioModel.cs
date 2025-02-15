@@ -1,4 +1,5 @@
 ﻿using ControleDeContatos.Enums;
+using ControleDeContatos.Helper;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
@@ -29,7 +30,12 @@ namespace ControleDeContatos.Models
 
         public bool SenhaValida(string senha)
         {
-            return Senha == senha;
+            return Senha == senha.GerarHash(); // compara a senha digitada com a senha criptografada
+        }
+
+        public void CriptografarSenha()
+        {
+            Senha = Senha.GerarHash(); // criptografa a senha e armazena no campo Senha
         }
     }
 }
