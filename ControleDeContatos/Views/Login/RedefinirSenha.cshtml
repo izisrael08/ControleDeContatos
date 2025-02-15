@@ -1,0 +1,59 @@
+﻿@model RedefinirSenhaModel
+
+@{
+    Layout = "_LayoutDeslogado";
+    ViewData["Title"] = "Redefinir Senha";
+}
+
+@{
+    var mensagemSucesso = TempData["MensagemSucesso"] as string;
+    var mensagemErro = TempData["MensagemErro"] as string;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/CustomRedefinirSenha.css" />
+}
+
+@if (!string.IsNullOrEmpty(mensagemSucesso) || !string.IsNullOrEmpty(mensagemErro))
+{
+    <div class="custom-notification-container">
+        @if (!string.IsNullOrEmpty(mensagemSucesso))
+        {
+            <div class="custom-alert custom-alert-success fade-in">
+                <span class="message">@mensagemSucesso</span>
+                <button type="button" class="close-alert" onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(mensagemErro))
+        {
+            <div class="custom-alert custom-alert-danger fade-in">
+                <span class="message">@mensagemErro</span>
+                <button type="button" class="close-alert" onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+        }
+    </div>
+}
+
+<div id="container" class="custom-container">
+    <div class="custom-form-container">
+        <form asp-controller="Login" asp-action="EnviarLinkParaRedefinirSenha" method="post">
+            <h2 class="custom-title">
+                Alterar senha
+            </h2>
+
+            <input type="text" asp-for="Login" class="custom-input" placeholder="Usuário" autocomplete="on">
+            <div class="custom-error-message">
+                @Html.ValidationMessageFor(x => x.Login)
+            </div>
+
+            
+            <input type="text" asp-for="Email" class="custom-input" id="email" placeholder="E-mail"  autocomplete="current-email">
+            <div class="custom-error-message">
+                @Html.ValidationMessageFor(x => x.Email)
+            </div>
+
+            <button type="submit" class="custom-button">Enviar</button>
+            <a asp-action="Index" asp-controller="Login" class="custom-button custom-secondary-button">Voltar</a>
+        </form>
+    </div>
+</div>

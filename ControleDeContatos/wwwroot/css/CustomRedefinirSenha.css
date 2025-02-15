@@ -1,0 +1,145 @@
+﻿/* Fundo da página */
+body {
+    background: #DDDDDD;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+/* Container principal */
+.custom-container {
+    background: #FFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px; /* Reduzi o tamanho máximo para melhor ajuste */
+    text-align: center;
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+/* Título */
+.custom-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Input */
+.custom-input {
+    width: 100%;
+    padding: 10px; /* Reduzi o padding para ocupar menos espaço */
+    margin: 8px 0; /* Reduzi a margem entre os campos */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    transition: all 0.3s;
+    outline: none;
+}
+
+    .custom-input:focus {
+        border-color: #0c64e6;
+        box-shadow: 0px 0px 6px rgba(12, 100, 230, 0.3);
+    }
+
+/* Mensagem de erro */
+.custom-error-message {
+    color: #E30713;
+    font-size: 12px;
+    margin-top: 4px;
+    text-align: left;
+}
+
+/* Botões */
+.custom-button {
+    width: 100%;
+    padding: 12px; /* Reduzi o padding para melhor encaixe */
+    background: #0c64e6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px; /* Reduzi o espaçamento entre o botão e o campo anterior */
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+    .custom-button:hover {
+        background: #023e6c;
+        transform: scale(1.02);
+    }
+
+.custom-secondary-button {
+    background: #f4f4f4;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+    .custom-secondary-button:hover {
+        background: #ddd;
+    }
+
+/* Notificações */
+.custom-notification-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 350px;
+}
+
+.custom-alert {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.custom-alert-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.custom-alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.close-alert {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 400px) {
+    .custom-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .custom-title {
+        font-size: 20px;
+    }
+
+    .custom-input {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .custom-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

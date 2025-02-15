@@ -25,18 +25,10 @@ document.getElementById("togglePassword").addEventListener("click", function () 
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    let alertBox = document.querySelector(".custom-alert");
+setTimeout(() => {
+    const alertBox = document.querySelector(".notification-container .alert");
     if (alertBox) {
-        document.querySelector(".close-alert").addEventListener("click", function () {
-            alertBox.classList.add("hide");
-            setTimeout(() => alertBox.remove(), 500);
-        });
-
-        // Fechar automaticamente após 5 segundos
-        setTimeout(() => {
-            alertBox.classList.add("hide");
-            setTimeout(() => alertBox.remove(), 500);
-        }, 5000);
+        alertBox.style.opacity = "0";
+        setTimeout(() => alertBox.remove(), 500);
     }
-});
+}, 5000); // A notificação desaparece após 5 segundos

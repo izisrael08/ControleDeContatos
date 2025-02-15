@@ -250,46 +250,96 @@ input {
     cursor: pointer;
 }
 
-.error-message {
-    color: red;
-    font-size: 12px;
-    position: absolute;
-    bottom: -18px; /* Mantém a mensagem fixa sem empurrar o input */
-    left: 5px;
-}
-
-/*Notificação*/
-
-.custom-alert {
+/* Container para manter as notificações no canto superior direito */
+.notification-container {
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: #E30713;
-    color: #fff;
-    padding: 10px 20px;
+    z-index: 1050;
+    min-width: 280px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaço entre as notificações */
+}
+
+/* Estilização das notificações */
+.alert {
+    position: relative;
+    padding: 15px 45px 15px 15px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-width: 250px;
-    max-width: 300px;
-    z-index: 1000;
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Cores para sucesso e erro */
+.alert-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Ajuste na mensagem para dar espaço ao botão de fechar */
+.message {
+    flex: 1; /* Ocupa o máximo possível do espaço disponível */
+    padding-right: 20px; /* Adiciona um espaço à direita para afastar o botão */
+}
+
+/* Ajuste no botão de fechar */
 .close-alert {
+    position: absolute;
+    top: 8px;
+    right: 12px;
     background: none;
     border: none;
-    color: #fff;
-    font-size: 23px;
-    margin-left: 10px;
+    font-size: 20px;
+    color: white;
     cursor: pointer;
+    font-weight: bold;
+    margin-left: 15px; /* Adiciona espaçamento entre o texto e o botão */
 }
 
-.custom-alert.hide {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animação de saída */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Desaparecer automaticamente após 5 segundos */
+.alert {
+    animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 5s forwards;
 }

@@ -5,13 +5,33 @@
     ViewData["Title"] = "Login";
 }
 
-@if (TempData["MensagemErro"] != null)
+@{
+    var mensagemSucesso = TempData["MensagemSucesso"] as string;
+    var mensagemErro = TempData["MensagemErro"] as string;
+}
+
+@if (!string.IsNullOrEmpty(mensagemSucesso) || !string.IsNullOrEmpty(mensagemErro))
 {
-    <div class="custom-alert">
-        <span>@TempData["MensagemErro"]</span>
-        <button class="close-alert">&times;</button>
+    <div class="notification-container">
+        @if (!string.IsNullOrEmpty(mensagemSucesso))
+        {
+            <div class="alert alert-success fade-in">
+                <span class="message">@mensagemSucesso</span>
+                <button type="button" class="close-alert" onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(mensagemErro))
+        {
+            <div class="alert alert-danger fade-in">
+                <span class="message">@mensagemErro</span>
+                <button type="button" class="close-alert" onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+        }
     </div>
 }
+
+
+
 
 <div id="container" class="container">
     <div class="form-container sign-up-container">
@@ -38,11 +58,11 @@
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
 
-            <input type="text" asp-for="Login" class="form-control" placeholder="Usuário" autocomplete="username">
+            <input type="text" asp-for="Login" class="form-control" placeholder="Usuário" autocomplete="on">
             @Html.ValidationMessageFor(x => x.Login)
 
             <div class="password-container">
-                <input type="password" asp-for="Senha" class="form-control" id="password" placeholder="Senha" autocomplete="current-password">
+                <input type="password" asp-for="Senha" class="form-control" id="password" placeholder="Senha" autocomplete="off">
                 <i class="fa fa-eye" id="togglePassword"></i>
             </div>
             <div class="error-message">
@@ -50,8 +70,8 @@
             </div>
 
 
-            <a href="#">Esqueceu sua senha?</a>
             <button type="submit" class="btn btn-primary w-100 mb-2">Entrar</button>
+            <a asp-action="RedefinirSenha" asp-controller="Login">Esqueceu sua senha?</a>
         </form>
     </div>
     <div class="overlay-container">
