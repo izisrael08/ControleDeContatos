@@ -1,51 +1,67 @@
-    using Microsoft.EntityFrameworkCore;
-    using ControleDeContatos.Data;
-    using ControleDeContatos.Repositorio;
-    using ControleDeContatos.Helper;
+using Microsoft.EntityFrameworkCore;
+using ControleDeContatos.Data;
+using ControleDeContatos.Repositorio;
+using ControleDeContatos.Helper;
+using Serilog;
 
-    var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container.
-    builder.Services.AddControllersWithViews();
+// Configuração do Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File(@"C:\Windows\Temp\log_SistemaDeContatos.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
-    // Adicionando o DbContext com a string de conexão configurada
-    builder.Services.AddDbContext<BancoContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+builder.Host.UseSerilog();
 
-    // Registrando os repositórios
-    builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
-    builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>(); // Certifique-se de que UsuarioRepositorio implementa IUsuarioRepositorio
+// Add services to the container.
+builder.Services.AddControllersWithViews();
 
-    // Registrando o IHttpContextAccessor corretamente como Singleton
-    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-    builder.Services.AddScoped<ISessao, Sessao>();
+// Adicionando o DbContext com a string de conexão configurada
+builder.Services.AddDbContext<BancoContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
-    // Adicionando o serviço de sessão
-    builder.Services.AddSession(options =>
-    {
-        options.Cookie.HttpOnly = true;
-        options.Cookie.IsEssential = true;
-        //options.IdleTimeout = TimeSpan.FromMinutes(30); // Define o tempo de expiração da sessão
-    });
+// Registrando os repositórios
+builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>(); // Certifique-se de que UsuarioRepositorio implementa IUsuarioRepositorio
 
-    var app = builder.Build();
+// Registrando o IHttpContextAccessor corretamente como Singleton
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<ISessao, Sessao>();
+builder.Services.AddScoped<IEmail, Email>();
 
-    // Configure the HTTP request pipeline.
-    if (!app.Environment.IsDevelopment())
-    {
-        app.UseExceptionHandler("/Home/Error");
-    }
-    app.UseStaticFiles();
+// Adicionando o serviço de sessão
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    //options.IdleTimeout = TimeSpan.FromMinutes(30); // Define o tempo de expiração da sessão
+});
 
-    app.UseRouting();
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddDebug();
+});
 
-    // Habilita o uso de sessões
-    app.UseSession();
+var app = builder.Build();
 
-    app.UseAuthorization();
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+}
+app.UseStaticFiles();
 
-    app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Login}/{action=Index}/{id?}");
+app.UseRouting();
 
-    app.Run();
+// Habilita o uso de sessões
+app.UseSession();
+
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Login}/{action=Index}/{id?}");
+
+app.Run();

@@ -37,5 +37,12 @@ namespace ControleDeContatos.Models
         {
             Senha = Senha.GerarHash(); // criptografa a senha e armazena no campo Senha
         }
+
+        public string GerarNovaSenha()
+        {
+            string novaSenha = Guid.NewGuid().ToString().Substring(0,8);
+            Senha = novaSenha.GerarHash();
+            return novaSenha;
+        }
     }
 }
