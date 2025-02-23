@@ -28,6 +28,8 @@ namespace ControleDeContatos.Models
         public DateTime DataCriacao { get; set; }
         public DateTime? DataAlteracao { get; set; }
 
+        public virtual List<ContatoModel> Contatos { get; set; }
+
         public bool SenhaValida(string senha)
         {
             return Senha == senha.GerarHash(); // compara a senha digitada com a senha criptografada

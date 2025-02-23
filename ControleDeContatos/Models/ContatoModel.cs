@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeContatos.Models
 {
@@ -17,5 +18,10 @@ namespace ControleDeContatos.Models
         [Required(ErrorMessage = "Digite o Celular do contato!")]
         [Phone(ErrorMessage = "Digite um número de Celular válido!")]
         public string Celular { get; set;  }
+
+        public int? UsuarioId { get; set; }
+
+        //[ValidateNever]
+        public UsuarioModel? Usuario { get; set; }
     }
 }
